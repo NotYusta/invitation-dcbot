@@ -1,4 +1,4 @@
-![imageurl]https://socialify.git.ci/NotYusta/seniordev-bot/image?description=1&issues=1&language=1&owner=1&theme=Light
+![imageurl](https://socialify.git.ci/NotYusta/seniordev-bot/image?description=1&issues=1&language=1&owner=1&theme=Light)
 # Invitation Discord Bot
 **A discord bot that will send you an invite to your direct messages**
 
