@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+      "allowJs": true,
+      "module": "ESNext",
+      "target": "ESNext",
+      "strict": true,
+      "strictBindCallApply": true,
+      "strictFunctionTypes": true,
+      "strictNullChecks": true,
+      "strictPropertyInitialization": true,
+      "outDir": "./dist",
+      "skipDefaultLibCheck": true,
+      "skipLibCheck": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "moduleResolution": "Node",
+      "removeComments": true,
+      "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
+}
