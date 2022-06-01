@@ -6,10 +6,10 @@ The invitation system will simply be just a command to send an invite which send
 */invite send <@user> - Sends an invitation to a user
 * /invite cancel <@user> - Cancel an invitation that has been sent to a user
 
-#### Sidenote:
-* Typescript Discord Bot
-* Use sequelize for the data storage.
-* Use js-yaml for the configuration.
+#### Sidenotes:
+* Typescript based discord bot
+* Uses sequelize for the data storage.
+* Uses js-yaml for the configuration.
 
 ## Installation
 1. Install the dependecies - Please run `npm install` if you are using npm package manager or use `yarn install` if you are using yarn package manager.
