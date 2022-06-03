@@ -2,8 +2,6 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Client, Guild } from "discord.js";
 import { PictureCommand } from "./picture/picture.js";
-import fetch from "node-fetch";
-import logger from "../utils/logger.js";
 import { GuildCommand } from "./commands.js";
 import { http } from "../utils/http.js";
 

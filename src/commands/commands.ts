@@ -17,7 +17,9 @@ export class GuildSubCommand {
         .setDescription(this.description)
     }
 
-    public async execute(client: Client, commandInteraction: CommandInteraction<CacheType>): Promise<void> {}
+    public async execute(_client: Client, _commandInteraction: CommandInteraction<CacheType>): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 }
 
 export class GuildCommand {
@@ -37,6 +39,10 @@ export class GuildCommand {
         
     }
 
-    public async init(client: Client): Promise<void> {}
-    public async execute(client: Client, commandInteraction: CommandInteraction<CacheType>): Promise<void> {}
+    public async init(_client: Client): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    public async execute(_client: Client, _commandInteraction: CommandInteraction<CacheType>): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 }
