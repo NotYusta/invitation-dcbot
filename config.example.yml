@@ -1,3 +1,23 @@
-debug: true
-bot: 
-  token: "YOUR_DISCORD_BOT_TOKEN_HERE"
+#######################################################
+#   _____            _ _        _   _                 #
+#  |_   _|          (_) |      | | (_)                #
+#    | |  _ ____   ___| |_ __ _| |_ _  ___  _ __      #
+#    | | | '_ \ \ / / | __/ _` | __| |/ _ \| '_ \     #
+#   _| |_| | | \ V /| | || (_| | |_| | (_) | | | |    #
+#  |_____|_| |_|\_/ |_|\__\__,_|\__|_|\___/|_| |_|    #
+#                                                     #
+#  An invitation discord bot for senior dev trial     #
+#######################################################           
+# Copy the config.example.yml to config.yml
+
+debug: true # Only for developer, false if you are not.
+bot:
+  token: '' # Put your discord token here
+database:
+  host: '' # Database's Host / IP
+  port: 3306 # Database's Port
+  username: '' # Database's Username
+  password: '' # Database's Password
+  database: '' # Database's Name
+  dialect: '' # Database's dialect, available: 'mysql' / 'postgres' / 'mariadb' / 'mssql' / 'sqlite' / etc
+  logging: '' # Logs the database query

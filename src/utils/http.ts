@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from "@discordjs/builders";
 import { Client, Guild } from "discord.js";
 import { AnimalPictureResponse } from "../typings/http"
 import logger from "./logger.js";
+import fetch from "node-fetch";
 
 const getAnimalPicture = async (animal: string): Promise<AnimalPictureResponse> => {
     const response = await fetch(`https://some-random-api.ml/animal/${animal}`, {

@@ -1,3 +1,5 @@
+import { Dialect } from "sequelize/types";
+
 export interface YamlConfig {
     debug: boolean;
     bot: {
@@ -7,6 +9,10 @@ export interface YamlConfig {
     database: {
         host: string;
         port: number;
-
+        username: string;
+        password: string;
+        database: string;
+        dialect: Dialect;
+        logging: boolean;
     }
 }
