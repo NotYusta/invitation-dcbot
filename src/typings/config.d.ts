@@ -1,4 +1,5 @@
 export interface YamlConfig {
+    debug: boolean;
     bot: {
         token: string;
 
