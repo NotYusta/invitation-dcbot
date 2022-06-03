@@ -1,6 +1,7 @@
 import { configSection } from './utils/config.js';
 import { Client } from 'discord.js';
 import logger from './utils/logger.js';
+import events from './events/events.js';
 
 const client = new Client({
     intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_TYPING', 'DIRECT_MESSAGES', 'DIRECT_MESSAGE_REACTIONS', 'DIRECT_MESSAGE_TYPING']
@@ -13,5 +14,6 @@ client.login(configSection.bot.token).then(() => {
 
     console.log();
     logger.info("Starting engines...");
+    events.init(client);
 });
 
