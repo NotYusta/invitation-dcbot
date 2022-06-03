@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "@discordjs/builders";
 import { CacheType, Client, CommandInteraction } from "discord.js";
 
 export class GuildSubCommand {
     public readonly commandName: string;
     public readonly description: string;
-    public readonly commandBuilder: SlashCommandBuilder = new SlashCommandBuilder();
+    public readonly commandBuilder: SlashCommandSubcommandBuilder = new SlashCommandSubcommandBuilder();
 
     constructor(commandName: string, description: string) {
         this.commandName = commandName;
@@ -18,6 +18,10 @@ export class GuildSubCommand {
     }
 
     public async execute(_client: Client, _commandInteraction: CommandInteraction<CacheType>): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    
+    public async init(_client: Client): Promise<void> {
         throw new Error("Method not implemented.");
     }
 }

@@ -24,7 +24,6 @@ client.on('ready', async () => {
         process.exit(1);
     }
     
-    mainConfig
 
 
     if(mainConfig.section.bot.activity.name.length > 0) {
@@ -42,7 +41,7 @@ client.on('ready', async () => {
 
 
     console.log();
-    events.init(client);
+    await events.init(client);
     await commandManager.init(client);
 
     logger.info("Bot is ready to use!");

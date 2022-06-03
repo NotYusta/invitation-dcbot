@@ -25,4 +25,4 @@ database:
   password: '' # Database's Password
   database: '' # Database's Name
   dialect: '' # Database's dialect, available: 'mysql' / 'postgres' / 'mariadb' / 'mssql' / 'sqlite' / etc
-  logging: '' # Logs the database query
+  logging: false # Logs the database query

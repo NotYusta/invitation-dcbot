@@ -1,5 +1,6 @@
-import { INTEGER, Model, STRING } from "sequelize/types";
-import { seqeuelizeDB } from "./database";
+import { INTEGER, Model, STRING } from "sequelize";
+import logger from "../utils/logger.js";
+import { seqeuelizeDB } from "./database.js";
 
 export class DiscordUsers extends Model<{
     id: number;
@@ -21,5 +22,7 @@ DiscordUsers.init({
     modelName: "discord_users",
     underscored: true
 })
-
-DiscordUsers.sync();
+ 
+DiscordUsers.sync({alter: true}).then(() => {
+    logger.info("DiscordUsers table synced!");
+})

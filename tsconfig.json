@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
       "allowJs": true,
-      "module": "ES2015",
+      "module": "ES6",
+      "target": "ES6",
       "strict": true,
       "strictBindCallApply": true,
       "strictFunctionTypes": true,
@@ -14,7 +15,7 @@
       "emitDecoratorMetadata": true,
       "moduleResolution":  "Node",
       "removeComments": true,
-      "allowSyntheticDefaultImports": true
+      "allowSyntheticDefaultImports": true,
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*"]

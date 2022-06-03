@@ -28,6 +28,7 @@ export interface MainConfig {
 
 
 export interface CommandsConfig {
+    deleteUnknownCommands: boolean;
     picture: {
         name: string;
         description: string;
@@ -36,6 +37,32 @@ export interface CommandsConfig {
                 description: string;
                 name: string;
             }
+        }
+    }
+    invite: {
+        name: string;
+        description: string;
+        subcommands: {
+            send: {
+                name: string;
+                description: string;
+                options: {
+                    recipient: {
+                        description: string;
+                        name: string;
+                    }
+                }
+            };
+            cancel: {
+                name: string;
+                description: string;
+                options: {
+                    recipient: {
+                        description: string;
+                        name: string;
+                    }
+                }
+            };
         }
     }
 }

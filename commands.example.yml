@@ -1,4 +1,5 @@
 # copy to commands.yml
+deleteUnknownCommands: true # deletes unknown commands other than below
 picture:
   name: "picture"
   description: "Get the chosen animal picture from the internet"
@@ -6,3 +7,21 @@ picture:
     animal: 
       name: "animal"
       description: "The animal to be chosen"
+invite:
+  name: 'invite'
+  description: 'The invite command'
+  subcommands:
+    send:
+      name: 'send'
+      description: 'Send an invite to the recipient'
+      options:
+        recipient:
+          description: 'The recipient target'
+          name: 'recipient'
+    cancel:
+      name: 'cancel'
+      description: 'Cancel an invite from the recipient'
+      options:
+        recipient:
+          description: 'The recipient target'
+          name: 'recipient'
