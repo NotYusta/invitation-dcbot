@@ -13,6 +13,11 @@
 debug: true # Only for developer, false if you are not.
 bot:
   token: '' # Put your discord token here
+  status: "dnd" # lowercase status, ex: 'dnd' / 'online' / 'offline' / 'away'
+  activity:
+    name: "none" # ex: 'YOUR FAVORITE CODER'
+    type: "PLAYING" # uppercase type, ex: 'WATCHING', 'PLAYING', 'STREAMING'
+    url: "https://orume.id" # activity url
 database:
   host: '' # Database's Host / IP
   port: 3306 # Database's Port

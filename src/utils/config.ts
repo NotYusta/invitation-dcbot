@@ -3,11 +3,16 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
 import path from 'path';
-import { YamlConfig } from '../typings/config';
-import logger from './logger.js';
+import { CommandsConfig, MainConfig } from '../typings/config';
 
-export const configPath = path.resolve('./config.yml');
-export const configFile = fs.readFileSync(configPath, 'utf8'); 
-export const configSection = yaml.load(configFile) as YamlConfig;
+class Config<T> {
+    public readonly path: string;
+    public readonly section: T
+    constructor(confPath: string) {
+        this.path = path.resolve(confPath);
+        this.section = yaml.load(fs.readFileSync(this.path, 'utf8')) as T;
+    }
+}
 
-logger.debug("Loaded config: " + configPath);
+export const mainConfig = new Config<MainConfig>('./config.yml')
+export const commandsConfig = new Config<CommandsConfig>('./commands.yml')

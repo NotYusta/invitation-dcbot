@@ -1,11 +1,11 @@
 import { Sequelize } from "sequelize/types";
-import { configSection } from "../utils/config";
+import { mainConfig } from "../utils/config";
 
 export const seqeuelizeDB = new Sequelize({
-    username: configSection.database.username,
-    password: configSection.database.password,
-    database: configSection.database.database,
-    host: configSection.database.host,
-    dialect: configSection.database.dialect,
-    logging: configSection.database.logging
+    username: mainConfig.section.database.username,
+    password: mainConfig.section.database.password,
+    database: mainConfig.section.database.database,
+    host: mainConfig.section.database.host,
+    dialect: mainConfig.section.database.dialect,
+    logging: mainConfig.section.database.logging
 })

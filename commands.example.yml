@@ -1,0 +1,8 @@
+# copy to commands.yml
+picture:
+  name: "picture"
+  description: "Get the chosen animal picture from the internet"
+  options:
+    animal: 
+      name: "animal"
+      description: "The animal to be chosen"

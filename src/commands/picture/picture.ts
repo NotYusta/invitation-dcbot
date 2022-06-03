@@ -1,5 +1,6 @@
 import { SlashCommandStringOption } from "@discordjs/builders";
 import { CommandInteraction, CacheType, Client } from "discord.js";
+import { commandsConfig } from "../../utils/config.js";
 import { http } from "../../utils/http.js";
 import logger from "../../utils/logger.js";
 import { GuildCommand } from "../commands.js";
@@ -7,7 +8,7 @@ import { GuildCommand } from "../commands.js";
 
 export class PictureCommand extends GuildCommand {
     constructor() {
-        super("picture", "Get a random picture from the internet");
+        super(commandsConfig.section.picture.name, commandsConfig.section.picture.description);
     }
 
     public async execute(_client: Client, commandInteraction: CommandInteraction<CacheType>): Promise<void> {
@@ -30,8 +31,8 @@ export class PictureCommand extends GuildCommand {
     public async init(_client: Client): Promise<void> {
         const animalOption = new SlashCommandStringOption();
 
-        animalOption.setName("animal");
-        animalOption.setDescription("The animal to get a picture of");
+        animalOption.setName(commandsConfig.section.picture.options.animal.name);
+        animalOption.setDescription(commandsConfig.section.picture.options.animal.description);
         animalOption.addChoices({
             name: "dog",
             value: "dog",

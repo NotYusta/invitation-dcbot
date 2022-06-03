@@ -1,5 +1,4 @@
-import { configSection } from "./config.js";
-
+const isDebug = true;
 const info = (...data: unknown[]) => {
     console.log("[INFO]:", ...data);
 }
@@ -13,7 +12,7 @@ const error = (...data: unknown[]) => {
 }
 
 const debug = (...data: unknown[]) => {
-    if(!configSection.debug) return;
+    if(!isDebug) return;
     console.log("[DEBUG]:", ...data);
 }
 
