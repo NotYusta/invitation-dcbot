@@ -2,7 +2,6 @@
   "compilerOptions": {
       "allowJs": true,
       "module": "ESNext",
-      "target": "ESNext",
       "strict": true,
       "strictBindCallApply": true,
       "strictFunctionTypes": true,
@@ -13,7 +12,7 @@
       "skipLibCheck": true,
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
-      "moduleResolution": "Node",
+      "moduleResolution":  "Node",
       "removeComments": true,
       "allowSyntheticDefaultImports": true
   },
