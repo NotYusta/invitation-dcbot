@@ -16,3 +16,4 @@ class Config<T> {
 
 export const mainConfig = new Config<MainConfig>('./config.yml')
 export const commandsConfig = new Config<CommandsConfig>('./commands.yml')
+commandsConfig.section.invite.cooldown = commandsConfig.section.invite.cooldown * 1000

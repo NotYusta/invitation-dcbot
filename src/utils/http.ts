@@ -15,31 +15,26 @@ const getAnimalPicture = async (animal: string): Promise<AnimalPictureResponse> 
     return await response.json() as AnimalPictureResponse;
 }
 
-const getGuildsCommands = async (client: Client): Promise<GuildCommandSimpleInfo[]> => {
-    const guildCommandsData: GuildCommandSimpleInfo[] = [];
-    const unresolved = client.guilds.cache.map(async (guild) => {
-        const response = await fetch(`https://discord.com/api/v10/applications/${client.user?.id}/guilds/${guild.id}/commands`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bot ${client.token}`,
-                "Content-Type": "application/json"
-            },
-        });
+const getGuildCommands = async (client: Client, guildId: string): Promise<GuildCommandSimpleInfo[] | undefined>  => {
+    const response = await fetch(`https://discord.com/api/v10/applications/${client.user?.id}/guilds/${guildId}/commands`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bot ${client.token}`,
+            "Content-Type": "application/json"
+        },
+    });
 
-        const result = await response.json() as GuildCommandSimpleInfo[];
-        if (!Array.isArray(result)) {
-            logger.warn(`Failed to get commands for guild ${guild.id}`);
-            return
-        }
+    const result = await response.json() as GuildCommandSimpleInfo[];
+    if (!Array.isArray(result)) {
+        logger.warn(`Failed to get commands for guild ${guildId}`);
+        return undefined;
+    }
 
-        guildCommandsData.push(...result);
-    })
 
-    await Promise.all(unresolved);
-    return guildCommandsData;
+    return result;
 }
 
-const deleteDiscordGuildCommand = async(client: Client, commandId: string, guild: Guild): Promise<boolean> => {
+const deleteDiscordGuildCommand = async(client: Client, commandId: string, guild: Guild): Promise<string> => {
     const response = await fetch(`https://discord.com/api/v10/applications/${client.user?.id}/guilds/${guild.id}/commands/${commandId}`, {
         method: "DELETE",
         headers: {
@@ -48,7 +43,7 @@ const deleteDiscordGuildCommand = async(client: Client, commandId: string, guild
         },
     })
     
-    return response.status == 204;
+    return response.statusText;
 }
 
 const registerDiscordGuildCommand = async(client: Client, commandBuilder: SlashCommandBuilder, guild: Guild): Promise<GuildCommandSimpleInfo | undefined> => {
@@ -61,13 +56,13 @@ const registerDiscordGuildCommand = async(client: Client, commandBuilder: SlashC
         },
     })
     
-    if(response.status != 200) {
-        logger.warn(`Failed to register command ${commandBuilder.name} to guild ${guild.id}`);
+    if(response.status != 200 && response.status != 201) {
+        logger.warn(`Failed to register command ${commandBuilder.name} to guild ${guild.name}, status: ${response.status}, reason: ${response.statusText}`);
         return undefined;
     } else {
-        logger.info(`Registered command ${commandBuilder.name} to guild ${guild.id}`);
+        logger.info(`Registered command ${commandBuilder.name} to guild ${guild.name}`);
         return await response.json() as GuildCommandSimpleInfo;
     }
 }
 
-export const http = { getAnimalPicture, registerDiscordGuildCommand, getGuildsCommands, deleteDiscordGuildCommand }
+export const http = { getAnimalPicture, registerDiscordGuildCommand, getGuildCommands, deleteDiscordGuildCommand }

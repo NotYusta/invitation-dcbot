@@ -1,10 +1,14 @@
-import { ActivityType, PresenceStatusData } from "discord.js";
+import { PresenceStatusData } from "discord.js";
+import { ActivityTypes } from "discord.js/typings/enums";
 import { Dialect } from "sequelize/types";
 
 
 
 export interface MainConfig {
     debug: boolean;
+    cache: {
+        invite: boolean;
+    }
     bot: {
         token: string;
         browser: string;
@@ -23,9 +27,13 @@ export interface MainConfig {
         database: string;
         dialect: Dialect;
         logging: boolean;
+    };
+    models: {
+        inviteData: string;
+        discordUsers: string;
+        buttonData: string;
     }
 }
-
 
 export interface CommandsConfig {
     deleteUnknownCommands: boolean;
@@ -42,6 +50,7 @@ export interface CommandsConfig {
     invite: {
         name: string;
         description: string;
+        cooldown: number;
         subcommands: {
             send: {
                 name: string;

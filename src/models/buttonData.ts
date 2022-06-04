@@ -3,30 +3,32 @@ import { mainConfig } from "../utils/config.js";
 import logger from "../utils/logger.js";
 import { seqeuelizeDB } from "./database.js";
 
-
-
-export class DiscordUserModel extends Model<{
+export class ButtonDataModel extends Model<{
     id?: number;
-    createdAt?: Date;
-    dcId: string;
+    name: string;
+    customId: string;
 }> {}
 
-DiscordUserModel.init({
+ButtonDataModel.init({
     id: {
         type: INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    dcId: {
+    name: {
+        type: STRING,
+        allowNull: false
+    },
+    customId: {
         type: STRING,
         allowNull: false
     },
 }, {
     sequelize: seqeuelizeDB,
-    modelName: mainConfig.section.models.discordUsers,
+    modelName: mainConfig.section.models.buttonData,
     underscored: true
 })
- 
-DiscordUserModel.sync({alter: true}).then(() => {
-    logger.info("DiscordUsers table synced!");
+
+ButtonDataModel.sync({alter: true}).then(() => {
+    logger.info("ButtonData table synced!");
 })

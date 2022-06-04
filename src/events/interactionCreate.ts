@@ -1,5 +1,7 @@
 import { Client } from "discord.js";
+import { buttonManager } from "../buttons/manager.js";
 import { commandManager } from "../commands/manager.js";
+import { ButtonDataModel } from "../models/buttonData.js";
 import logger from "../utils/logger.js";
 
 
@@ -24,5 +26,19 @@ export default (client: Client) => {
             return;
         }
 
+        if(interaction.isButton()) {
+            logger.debug("Received button interaction: " + interaction.customId);
+            const buttonData = await ButtonDataModel.findOne({where: {customId: interaction.customId}});
+            if(buttonData == null) return;
+
+            
+            
+            for(const interactionButton of buttonManager.interactionButtonsData) {
+                if(buttonData.getDataValue('name') == interactionButton.name) {
+                    await interactionButton.exec(client, interaction);
+                    break;
+                }
+            }
+        }
     })
 }

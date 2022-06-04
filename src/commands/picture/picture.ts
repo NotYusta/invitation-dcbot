@@ -15,7 +15,7 @@ export class PictureCommand extends GuildCommand {
         await commandInteraction.deferReply();
         await commandInteraction.editReply("Please wait while I'm downloading the picture...");
 
-        const animalOption = commandInteraction.options.getString("animal", true);
+        const animalOption = commandInteraction.options.getString(commandsConfig.section.picture.options.animal.name, true);
 
         logger.debug(commandInteraction.user.tag + " requested a picture of " + animalOption);
         const pictureData = await http.getAnimalPicture(animalOption);
@@ -29,6 +29,7 @@ export class PictureCommand extends GuildCommand {
     
 
     public async init(_client: Client): Promise<void> {
+        logger.debug("Initializing picture command");
         const animalOption = new SlashCommandStringOption();
 
         animalOption.setName(commandsConfig.section.picture.options.animal.name);
@@ -43,7 +44,9 @@ export class PictureCommand extends GuildCommand {
 
         animalOption.setRequired(true);
 
-        this.commandBuilder.addStringOption(animalOption)
+        this.commandBuilder.addStringOption(animalOption);
+
+        logger.debug("Picture command initialized");
     }
 }
 

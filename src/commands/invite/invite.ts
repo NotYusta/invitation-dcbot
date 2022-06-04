@@ -5,25 +5,15 @@ import { InviteCancelSubCommand } from "./cancel.js";
 import { InviteSendSubCommand } from "./send.js";
 
 export class InviteCommand extends GuildCommand {
+    
     constructor() {
         super(commandsConfig.section.invite.name, commandsConfig.section.invite.description);
-    }
-
-    public async execute(_client: Client, CommandInteraction: CommandInteraction<CacheType>): Promise<void> { return }
-    public async init(client: Client<boolean>): Promise<void> {
-        const sendSubCmd = new InviteSendSubCommand();
-        const cancelSubCmd = new InviteCancelSubCommand();
-
-        await sendSubCmd.init(client);
-        await cancelSubCmd.init(client);
-
         this.subCommands.push(
-            sendSubCmd,
-            cancelSubCmd    
+            new InviteCancelSubCommand(),
+            new InviteSendSubCommand()
         )
-
-        for(const subCmd of this.subCommands) {
-            this.commandBuilder.addSubcommand(subCmd.commandBuilder);
-        }
     }
+
+    public async execute(_client: Client, _commandInteraction: CommandInteraction<CacheType>): Promise<void> { return }
+    public async init(client: Client<boolean>): Promise<void> { return }
 }

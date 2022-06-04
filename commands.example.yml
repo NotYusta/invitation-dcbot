@@ -9,6 +9,7 @@ picture:
       description: "The animal to be chosen"
 invite:
   name: 'invite'
+  cooldown: 35 # cooldown to resend an invitation in seconds
   description: 'The invite command'
   subcommands:
     send:

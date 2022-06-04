@@ -7,64 +7,74 @@ import { http } from "../utils/http.js";
 import { InviteCommand } from "./invite/invite.js";
 import logger from "../utils/logger.js";
 import { commandsConfig } from "../utils/config.js";
+import utils from "../utils/utils.js";
 
 
-const guildCommands: GuildCommand[] = [];
-const registerToGuild = async (client: Client, guild: Guild) => {
-    const commandsCurData: SlashCommandBuilder[] = [];
+const guildCommands: GuildCommand[] = [
+    new PictureCommand(),
+    new InviteCommand(),
+];
 
-    for (const command of guildCommands) {
-        await command.init(client);
-        commandsCurData.push(command.commandBuilder);
-    }
+const registerToGuild = async (client: Client, guild: Guild, commandsData: SlashCommandBuilder[]) => {
 
+    
     const addedCmdsId: string[] = []
-    for(const commandBuilder of commandsCurData) {
+    for(const commandBuilder of commandsData) {
         // Ref: https://discord.com/developers/docs/interactions/application-commands#slash-commands
         // better to use own http than using the default module from discord.js
         const result = await http.registerDiscordGuildCommand(client, commandBuilder, guild);
         if(result != null) {
+            logger.debug(`Added command ${commandBuilder.name} to guild ${guild.name} with id ${result?.id}`);
             addedCmdsId.push(result.id);
         }
+
+
+        // To prevent too many requests (429)
+        await utils.sleep(200);
     }
+    
 
     if(commandsConfig.section.deleteUnknownCommands) {
-        logger.info("Deleting unknown commands...");
-        const guildCommandsData = await http.getGuildsCommands(client);
+        const guildCommandsData = await http.getGuildCommands(client, guild.id);
 
-        for(const commandInfo of guildCommandsData ) {
+        if(guildCommandsData == null) return;
+        for(const commandInfo of guildCommandsData) {
             if(addedCmdsId.includes(commandInfo.id)) continue;
 
-            const isSuccess = await http.deleteDiscordGuildCommand(client, commandInfo.id, guild);
-            if(!isSuccess) {
-                logger.warn(`Failed to delete command ${commandInfo.id} from guild ${guild.name}`);
+            const responseText = await http.deleteDiscordGuildCommand(client, commandInfo.id, guild);
+            if(responseText != "No Content") {
+                logger.warn(`Failed to delete command ${commandInfo.id} from guild ${guild.name}, reason: ${responseText}`);
             } else {
                 logger.info(`Deleted command ${commandInfo.id} from guild ${guild.name}`);
             }
+
+            // To prevent too many requests (429)
+            await utils.sleep(200);
         }
-        
-        logger.info("Done!");
     }
     
 }
 
-const registerToAllGuilds = async (client: Client) => {
-    const unresolved = client.guilds.cache.map(async (guild) => {
-        await registerToGuild(client, guild);
-    })
-
-    return await Promise.all(unresolved);
+const registerToAllGuilds = async (client: Client, commandsData: SlashCommandBuilder[]) => {
+    return await Promise.all(client.guilds.cache.map(async (guild) => {
+        await registerToGuild(client, guild, commandsData);
+    }));
 }
 
 
 const init = async (client: Client) => {
-    guildCommands.push(
-        new PictureCommand(),
-        new InviteCommand()
-    );
+    const currCommandsData: SlashCommandBuilder[] = [];
+    for(const guildCommand of guildCommands) {
+        await guildCommand.init(client);
+        for(const guildSubCmd of guildCommand.subCommands) {
+            await guildSubCmd.init(client);
+            guildCommand.commandBuilder.addSubcommand(guildSubCmd.commandBuilder);
+        }
 
+        currCommandsData.push(guildCommand.commandBuilder);
+    }
 
-    await registerToAllGuilds(client);
+    await registerToAllGuilds(client, currCommandsData);
 }
 
 export const commandManager =  {

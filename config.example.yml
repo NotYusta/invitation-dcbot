@@ -11,6 +11,8 @@
 # Copy the config.example.yml to config.yml
 
 debug: true # Only for developer, false if you are not.
+cache:
+  invite: true # Cache the invite data for faster performance
 bot:
   token: '' # Put your discord token here
   status: "dnd" # lowercase status, ex: 'dnd' / 'online' / 'offline' / 'away'
@@ -26,3 +28,7 @@ database:
   database: '' # Database's Name
   dialect: '' # Database's dialect, available: 'mysql' / 'postgres' / 'mariadb' / 'mssql' / 'sqlite' / etc
   logging: false # Logs the database query
+models: # The database models name, recommended to leave them as default
+  inviteData: "invite_models"
+  discordUsers: "discorduser_caches"
+  buttonData: "button_caches"

@@ -4,6 +4,7 @@ import logger from './utils/logger.js';
 import events from './events/events.js';
 import { commandManager } from './commands/manager.js';
 import { mainConfig } from './utils/config.js';
+import { StatusTypes } from './typings/invite.js';
 
 
 const client = new Client({
